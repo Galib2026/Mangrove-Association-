@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mangrove Association</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <style>
+    :root {
+      --green-deep: #0b3b35;
+      --green-soft: #10554a;
+      --green-light: #e3f2ef;
+      --accent: #f6a623;
+      --bg: #f5f7f7;
+      --card-bg: #ffffff;
+      --text-main: #16302b;
+      --border-soft: #d9e5e2;
+      --danger: #c0392b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* HEADER & NAV */
+
+    header {
+      background: var(--green-deep);
+      color: #ffffff;
+      padding: 0.75rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .topbar {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #76c7a2, #05342b);
+      border: 2px solid rgba(255,255,255,0.7);
+    }
+
+    .brand-text h1 {
+      font-size: 1.25rem;
+      letter-spacing: 0.03em;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+    }
+
+    nav li {
+      padding: 0.35rem 0.7rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+
+    nav li:hover {
+      background: rgba(255,255,255,0.12);
+    }
+
+    nav li.active {
+      background: #ffffff;
+      color: var(--green-deep);
+      font-weight: 600;
+    }
+
+    /* LAYOUT */
+
+    main {
+      max-width: 1100px;
+      margin: 1.5rem auto 3rem auto;
+      padding: 0 1rem;
+    }
+
+    section.page {
+      display: none;
+      margin-bottom: 3rem;
+    }
+
+    section.page.active {
+      display: block;
+    }
+
+    .section-title {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 1.25rem;
+    }
+
+    /* CARDS & COMMON */
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 14px;
+      padding: 1.25rem 1.4rem;
+      border: 1px solid var(--border-soft);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .card + .card {
+      margin-top: 1rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.2rem 0.7rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: var(--green-light);
+      color: var(--green-deep);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(11, 59, 53, 0.08);
+      margin-right: 0.35rem;
+      margin-top: 0.25rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0,2fr) minmax(0,1.5fr);
+      gap: 1.25rem;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0.5rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #1f1305;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.18);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.22);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.7);
+      color: #ffffff;
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.15);
+    }
+
+    .btn-small {
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      border: 1px solid #cfd7d5;
+      font-size: 0.9rem;
+      font-family: inherit;
+    }
+
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+      display: inline-block;
+    }
+
+    .field {
+      margin-bottom: 0.8rem;
+    }
+
+    .helper {
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-top: 0.1rem;
+    }
+
+    .notice {
+      font-size: 0.82rem;
+      padding: 0.5rem 0.7rem;
+      border-radius: 8px;
+      border: 1px dashed var(--border-soft);
+      background: #fdfbf6;
+      margin-top: 0.6rem;
+    }
+
+    .alert {
+      font-size: 0.8rem;
+      padding: 0.45rem 0.6rem;
+      border-radius: 8px;
+      background: rgba(192,57,43,0.06);
+      border: 1px solid rgba(192,57,43,0.25);
+      color: #7c2116;
+      margin-bottom: 0.6rem;
+      display: none;
+    }
+
+    .alert.success {
+      background: rgba(46, 204, 113, 0.08);
+      border-color: rgba(39, 174, 96, 0.5);
+      color: #166534;
+    }
+
+    /* HERO (HOME) */
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(0, 1.6fr);
+      gap: 1.3rem;
+      align-items: center;
+    }
+
+    .hero-main h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-main p {
+      font-size: 0.95rem;
+      max-width: 36rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-meta {
+      font-size: 0.78rem;
+      opacity: 0.85;
+    }
+
+    .hero-image {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      min-height: 220px;
+      background: radial-gradient(circle at 30% 10%, #e6fff4, #0b3b35);
+      display: flex;
+      align-items: stretch;
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: soft-light;
+      opacity: 0.85;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.35));
+    }
+
+    .hero-stat {
+      position: absolute;
+      bottom: 0.9rem;
+      left: 0.9rem;
+      background: rgba(255,255,255,0.94);
+      padding: 0.55rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.05rem;
+    }
+
+    /* ADVISORS & COMMITTEE */
+
+    .advisor-card {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr);
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    .advisor-avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid rgba(11,59,53,0.12);
+      background: #f1f5f4;
+      flex-shrink: 0;
+    }
+
+    .advisor-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .advisor-main h3 {
+      margin-bottom: 0.25rem;
+    }
+
+    .advisor-main .name {
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+
+    .advisor-main .role {
+      font-size: 0.85rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .advisor-main .desc {
+      font-size: 0.82rem;
+      opacity: 0.9;
+    }
+
+    .committee-highlight {
+      border: 2px solid var(--accent);
+      background: #fffaf2;
+    }
+
+    .committee-highlight .pill {
+      background: #fff2d7;
+    }
+
+    /* GALLERY */
+
+    .gallery-tabs {
+      display: inline-flex;
+      border-radius: 999px;
+      background: #e9f1ef;
+      padding: 0.15rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .gallery-tab {
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+
+    .gallery-tab.active {
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      font-weight: 600;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(160px,1fr));
+      gap: 0.6rem;
+    }
+
+    .gallery-item {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border-soft);
+      background: #ffffff;
+    }
+
+    .gallery-thumb {
+      height: 110px;
+      background: #d9e5e2;
+    }
+
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gallery-caption {
+      font-size: 0.78rem;
+      padding: 0.4rem 0.6rem 0.45rem 0.6rem;
+    }
+
+    /* TABLES & SEARCH */
+
+    .table-card {
+      margin-top: 0.7rem;
+    }
+
+    .search-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-row input {
+      max-width: 260px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+
+    th, td {
+      padding: 0.35rem 0.5rem;
+      border-bottom: 1px solid #e1ebe8;
+      text-align: left;
+    }
+
+    th {
+      background: #f1f7f5;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background: #fbfdfc;
+    }
+
+    /* CONTACT & FOOTER */
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0,1.2fr) minmax(0,1.7fr);
+      gap: 1rem;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    footer {
+      background: var(--green-deep);
+      color: #cfe4de;
+      padding: 0.9rem 1rem;
+      font-size: 0.8rem;
+      text-align: center;
+    }
+
+    footer span.year {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* LOGIN */
+
+    .login-box {
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .login-meta {
+      font-size: 0.8rem;
+      opacity: 0.9;
+      margin-bottom: 0.6rem;
+    }
+
+    .login-hint {
+      font-size: 0.75rem;
+      opacity: 0.85;
+      margin-top: 0.1rem;
+    }
+
+    .badge-locked {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.75rem;
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      border: 1px solid rgba(192,57,43,0.3);
+      color: #7c2116;
+      background: rgba(192,57,43,0.06);
+      margin-left: 0.35rem;
+    }
+
+    .badge-unlocked {
+      border-color: rgba(46,204,113,0.5);
+      color: #166534;
+      background: rgba(46,204,113,0.08);
+    }
+
+    /* RESPONSIVE */
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .hero-image {
+        order: -1;
+      }
+      .two-col {
+        grid-template-columns: minmax(0,1fr);
+      }
+      .contact-grid {
+        grid-template-columns: minmax(0,1fr);
+      }
+      nav ul {
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 0.7rem 0.9rem;
+      }
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      nav ul {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-logo"></div>
+      <div class="brand-text">
+        <h1>Mangrove Association</h1>
+        <p>শিক্ষা একতা সততা সমঝোতা আন্তরিকতা</p>
+      </div>
+    </div>
+    <nav>
+      <ul id="nav">
+        <li data-target="home" class="active">Home</li>
+        <li data-target="advisors">Advisors</li>
+        <li data-target="committee">Current Committee</li>
+<li data-target="teachers">Teachers & Staff</li>
+        <li data-target="gallery">Gallery</li>
+        <li data-target="about">About</li>
+        <li data-target="contact">Contact</li>
+        <li data-target="registration">Registration</li>
+        <li data-target="donation">Donation</li>
+        <li data-target="login" id="nav-login">Member Login</li>
+        <li data-target="members" id="nav-members" style="display:none;">Members Area</li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section id="home" class="page active">
+    <div class="hero card">
+      <div class="hero-main">
+        <h2>Official platform of Mangrove Association</h2>
+        <p>
+          A non-profit organization connecting students, teachers, alumni and
+          well-wishers of the Department of Geography &amp; Environment around
+          environment, research, and community service.
+        </p>
+        <div class="hero-badges">
+          <span class="tag">Student-led</span>
+          <span class="tag">Non-profit</span>
+          <span class="tag">SUST Campus</span>
+        </div>
+        <div class="hero-cta">
+          <button class="btn btn-primary" data-jump="registration">Become a member</button>
+          <button class="btn btn-ghost btn-small" data-jump="donation">Support with a donation</button>
+        </div>
+        <p class="hero-meta">
+          Highlighting journeys, committees, activities and memories of Mangrove Association in one place.
+        </p>
+      </div>
+
+      <div class="hero-image">
+        <img src="Glogo.png" alt="Mangrove Forest" />
+        <div class="hero-overlay"></div>
+        <div class="hero-stat">
+          <strong>201X – Present</strong>
+          <span>শিক্ষা একতা সততা সমঝোতা আন্তরিকতা</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col" style="margin-top:1.3rem;">
+      <div class="card">
+        <div class="pill">Journey &amp; History</div>
+        <p>
+          Mangrove Association started as a small initiative of a few students who wanted to create a platform
+          for academic discussion, environmental awareness and strong bonding between different batches.
+        </p>
+        <p style="margin-top:0.4rem;">
+          Over time it grew into a community where students, teachers and alumni work together for seminars,
+          field visits, publication, social work and campus-wide programs.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="pill">Mission &amp; Vision</div>
+        <ul style="margin-left:1.1rem; font-size:0.9rem;">
+          <li>To connect current students, teachers and alumni under one umbrella.</li>
+          <li>To arrange academic programs, environment-focused events and social initiatives.</li>
+          <li>To create a structured platform for mentoring, guidance and leadership development.</li>
+          <li>To preserve the memories and history of Mangrove Association in an organized way.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ADVISORS -->
+  <section id="advisors" class="page">
+    <h2 class="section-title">Advisors</h2>
+    <p class="section-subtitle">
+      Our respected advisors guide Mangrove Association with their experience, wisdom, and continuous support.
+    </p>
+
+    <div class="grid-cards">
+
+      <!-- Chief Advisor -->
+      <div class="card advisor-card committee-highlight">
+        <div class="advisor-avatar">
+         
+          <img src="chief-advisor.jpg.jpg" alt="Chief Advisor" />
+        </div>
+        <div class="advisor-main">
+          <div class="pill">Chief Advisor</div>
+          <p class="name">Dr. Sabina Rahman  </p>
+          <p class="role">Professor, Department of Statistics</p>
+          <p class="desc">
+           
+          </p>
+        </div>
+      </div>
+
+      <!-- Another Advisor -->
+      <div class="card advisor-card">
+        <div class="advisor-avatar">
+          <img src="salma mam.jpg" alt="Advisor" />
+        </div>
+        <div class="advisor-main">
+          <div class="pill">Advisor</div>
+
+          <p class="name">Dr Engr Salma Akhter</p>
+          <p class="role">Professor, Department of Chemical Engineering & Polymer Science</p>
+          <p class="desc">
+            
+          </p>
+        </div>
+      </div>
+
+ <!-- Another Advisor -->
+      <div class="card advisor-card">
+        <div class="advisor-avatar">
+          <img src="kamrul sir.jpg" alt="Advisor" />
+        </div>
+        <div class="advisor-main">
+          <div class="pill">Advisor</div>
+
+          <p class="name">Dr Md Kamrul Islam</p>
+          <p class="role">Professor,  Genetic Engineering & Biotechnology</p>
+          <p class="desc">
+        
+          </p>
+        </div>
+      </div>
+
+
+     
+
+    </div>
+  </section>
+
+  <!-- CURRENT COMMITTEE -->
+  <section id="committee" class="page">
+    <h2 class="section-title">Current Committee</h2>
+    <p class="section-subtitle">
+      Present executive committee of Mangrove Association for the running session.
+    </p>
+
+    <div class="card committee-highlight">
+      <div class="pill">President</div>
+      <div class="advisor-card" style="border:none; box-shadow:none; padding:0; margin-top:0.4rem;">
+        <div class="advisor-avatar">
+          <img src="president.jpg" alt="President" />
+        </div>
+        <div class="advisor-main">
+          <p class="name">Shikh Obaydullah </p>
+          <p class="role">President, Mangrove Association</p>
+          <p class="desc">
+            Leads Mangrove Association, represents the platform officially and ensures that activities are
+            aligned with mission, constitution and member expectations.
+          </p>
+        </div>
+      </div>
+    </div>
+
+ 
+    
+      <div class="card committee-highlight">
+      <div class="pill">General Secratary</div>
+      <div class="advisor-card" style="border:none; box-shadow:none; padding:0; margin-top:0.4rem;">
+        <div class="advisor-avatar">
+          <img src="gs.jpg" alt="General Secratary " />
+        </div>
+        <div class="advisor-main">
+          <p class="name">Shuvo Joti Sarkar </p>
+          <p class="role">General Secratary, Mangrove Association</p>
+          <p class="desc">
+            Leads Mangrove Association, represents the platform officially and ensures that activities are
+            aligned with mission, constitution and member expectations.
+          </p>
+        </div>
+      </div>
+    </div>
+
+ <div class="grid-cards">
+
+  <!-- SENIOR VICE PRESIDENT -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="svp.jpg" alt="Senior Vice President - Md. Ridoy Hasan" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Senior Vice President</div>
+      <p class="name">Md. Ridoy Hasan</p>
+    </div>
+  </div>
+
+  <!-- VICE PRESIDENTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="istiakvp.jpg" alt="Vice President - MD Istiak Mahmud" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Vice President</div>
+      <p class="name">MD Istiak Mahmud</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="anada das.jpg" alt="Vice President - Anondo Das" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Vice President</div>
+      <p class="name">Anondo Das</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="anu.jpg" alt="Vice President - Mahbub Hasan Anu" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Vice President</div>
+      <p class="name">Mahbub Hasan Anu</p>
+    </div>
+  </div>
+
+ <!-- VICE PRESIDENTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="nazim vp.jpg" alt="Vice President - MD Istiak Mahmud" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Vice President</div>
+      <p class="name">Nazim Azad</p>
+    </div>
+  </div>
+
+  <!-- ASSISTANT GENERAL SECRETARIES -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="taj ags.jpg" alt="Assistant General Secretary - Abdur Rahim Sajib" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant General Secretary</div>
+      <p class="name">Taj Ahmed Turjo</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="sumaiya ags.jpg" alt="Assistant General Secretary - Mst. Sumaiya Chowdhury" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant General Secretary</div>
+      <p class="name">Mst. Sumaiya Chowdhury</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="sajib ags.jpg" alt="Assistant General Secretary - Tai Ahmad Turjo" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant General Secretary</div>
+      <p class="name">Abdur Rahim Sajib</p>
+    </div>
+  </div>
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="anika ags.jpg" alt="Assistant General Secretary - Mst. Sumaiya Chowdhury" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant General Secretary</div>
+      <p class="name">Anika Morshed Chadni</p>
+    </div>
+  </div>
+
+  <!-- ORGANIZING SECRETARY + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="lipton os.jpg" alt="Organizing Secretary - MD. Lipton Ali" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Organizing Secretary</div>
+      <p class="name">MD. Lipton Ali</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="durjoy aos.jpg" alt="Assistant Organizing Secretary - Durjoy" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Organizing Secretary</div>
+      <p class="name">Durjoy Saha</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="antu os.jpg" alt="Assistant Organizing Secretary - MD. Shible Noman" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Organizing Secretary</div>
+      <p class="name">MD. Shible Noman Antu</p>
+    </div>
+  </div>
+
+  <!-- TREASURER + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="shukur ts.jpg" alt="Treasurer - MD Shukur Mia" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Treasurer</div>
+      <p class="name">MD Shukur Mia</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="nadia ats.jpg" alt="Assistant Treasurer - Nadia Nusrat" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Treasurer</div>
+      <p class="name">Nadia Nusrat</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="sagor ats.jpg" alt="Assistant Treasurer - Sagor Mondal" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Treasurer</div>
+      <p class="name">Sagor Mondal</p>
+    </div>
+  </div>
+
+  <!-- OFFICE SECRETARY + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="ashikuzzaman ofs.jpg" alt="Office Secretary - Md. Ashikuzzaman" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Office Secretary</div>
+      <p class="name">Md. Ashikuzzaman</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="meskat aofs.jpg" alt="Assistant Office Secretary - Meskatal Islam" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Office Secretary</div>
+      <p class="name">Meskatal Islam</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="hasib aofs.jpg" alt="Assistant Office Secretary - Hasib Al Hasan" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Office Secretary</div>
+      <p class="name">Hasib Al Hasan</p>
+    </div>
+  </div>
+
+  <!-- PUBLICATION SECRETARY + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="jahid ps.jpg" alt="Publication Secretary - MD Sagor Hosen Jahid" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Publication Secretary</div>
+      <p class="name">MD Sagor Hosen Jahid</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="ragib aps.jpg" alt="Assistant Publication Secretary - Ragib Shahria Sakib" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Publication Secretary</div>
+      <p class="name">Ragib Shahria Sakib</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="jaowad aps.jpg" alt="Assistant Publication Secretary - Jaodul Karim Himel" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Publication Secretary</div>
+      <p class="name">Jaodul Karim Himel</p>
+    </div>
+  </div>
+
+  <!-- IT SECRETARY + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="mohaiminul its.jpg" alt="IT Secretary - Md Mohai Minul Haque" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">IT Secretary</div>
+      <p class="name">Md Mohai Minul Haque</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="masud aits.jpg" alt="Assistant IT Secretary - Masud Shahriyer" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant IT Secretary</div>
+      <p class="name">Masud Shahriyer</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="sajib k aits.jpg" alt="Assistant IT Secretary - Sajib Kumar Roy" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant IT Secretary</div>
+      <p class="name">Sajib Kumar Roy</p>
+    </div>
+  </div>
+
+  
+<!-- SPORTS SECRETARY + ASSISTANTS -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="touhidur ss.jpg" alt="Sports Secretary - Touhidur Rahman" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Sports Secretary</div>
+      <p class="name">Touhidur Rahman</p>
+  </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="sanjamul ass.jpg" alt="Assistant Sports Secretary - Sanjam Islam Riad" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Sports Secretary</div>
+      <p class="name">Sanjam Islam Riad</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="mithun ass.jpg" alt="Assistant Sports Secretary - Mithun Biswas" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Sports Secretary</div>
+      <p class="name">Mithun Biswas</p>
+    </div>
+  </div>
+
+  <!-- FEMALE SECRETARY + ASSISTANT -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="labonno fs.jpg" alt="Female Secretary - Labonoy Mondal" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Female Secretary</div>
+      <p class="name">Labonoy Mondal</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="anika afs.jpg" alt="Assistant Female Secretary - Anika Tabassum Arpa" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Female Secretary</div>
+      <p class="name">Anika Tabassum Arpa</p>
+    </div>
+  </div>
+
+  <!-- PUBLICITY SECRETARY + ASSISTANT -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="https://via.placeholder.com/160x160.png?text=Photo" alt="Publicity Secretary - Md. Iqbal Hossain" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Publicity Secretary</div>
+      <p class="name">Md. Iqbal Hossain</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="https://via.placeholder.com/160x160.png?text=Photo" alt="Assistant Publicity Secretary - Md. Maruf" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Publicity Secretary</div>
+      <p class="name">Md. Maruf</p>
+    </div>
+  </div>
+
+  <!-- CULTURAL SECRETARY + ASSISTANT -->
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="https://via.placeholder.com/160x160.png?text=Photo" alt="Cultural Secretary - Ismail Hossain" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Cultural Secretary</div>
+      <p class="name">Ismail Hossain</p>
+    </div>
+  </div>
+
+  <div class="card advisor-card">
+    <div class="advisor-avatar">
+      <img src="https://via.placeholder.com/160x160.png?text=Photo" alt="Assistant Cultural Secretary - Md. Sabbir Hossen" />
+    </div>
+    <div class="advisor-main">
+      <div class="pill">Assistant Cultural Secretary</div>
+      <p class="name">Md. Sabbir Hossen</p>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+    </div>
+  </section>
+
+  <!-- TEACHERS & STAFF -->
+  <section id="teachers" class="page">
+    <h2 class="section-title">Teachers &amp; Staff Panel</h2>
+    <p class="section-subtitle">
+      Teachers and officers associated with Mangrove Association, organized from your provided lists.
+    </p>
+
+          </div>
+    </div>
+
+    <div class="card table-card">
+      <div class="pill">Teachers List</div>
+      <div class="search-row">
+        <span class="helper">Search by name, designation, department, district, email, mobile or membership status.</span>
+        <input id="search-teachers-public" type="text" placeholder="Search teachers..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-teachers-public">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Designation</th>
+<th>Additional</th>
+              <th>District</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>Membership Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Dr Sabina Islam</td><td>STA</td><td>Professor</td><td>-</td><td>Jashore</td><td>01911720525</td><td>sabina-sta@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>2</td><td>Dr Md Kamrul Islam</td><td>GEB</td><td>Professor</td><td>Department Head</td><td>Satkhira</td><td>01716439353</td><td>kamrul-gen@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>3</td><td>Dr Md Abdullah Al Mamun</td><td>GEB</td><td>Professor</td><td>-</td><td>Chuadanga</td><td>01716081004</td><td>mamamun-geb@sust.edu</td><td>Member</td></tr>
+            <tr><td>4</td><td>Dr Md Ashrafuzzaman</td><td>GEB</td><td>Professor</td><td>-</td><td>Chuadanga</td><td>1304189111</td><td>azamangeb-gen@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>5</td><td>Md Hazrat Ali</td><td>GEB</td><td>Assistant Professor</td><td>-</td><td>Satkhira</td><td>01716299245</td><td>hazratsust05@gmail.com</td><td>Member</td></tr>
+            <tr><td>6</td><td>G.M. Nurnabi Azad Jewel</td><td>GEB</td><td>Assistant Professor</td><td>-</td>S<td>-</td><td>01712404214</td><td>najewel-geb@gmail.com</td><td>Member</td></tr>
+            <tr><td>7</td><td>Dr Engr Salma Akter</td><td>CEP</td><td>Professor</td><td>Director of IQAC</td><td>Jashore</td><td>01552438452</td><td>siqbal-ctp@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>8</td><td>Dr Md Ismail Hossain</td><td>SCW</td><td>Professor</td><td>Treasurer(SUST)</td><td>Jashore</td><td>01711069070</td><td>ismailscw@yahoo.com</td><td>Member</td></tr>
+            <tr><td>9</td><td>Dr Tulshi Kumar Das</td><td>SCW</td><td>Professor</td><td>-</td><td>Jhenaidah</td><td>01716120886</td><td>tulshikumardas@gmail.com</td><td>Member</td></tr>
+            <tr><td>10</td><td>Dr Md Faisal Ahmmed</td><td>SCW</td><td>Professor</td><td>-</td><td>Narail</td><td>01716201325</td><td>fahmmedsust@yahoo.com</td><td>Member</td></tr>
+            <tr><td>11</td><td>Dr Md Mizanur Rahman</td><td>SCW</td><td>Professor</td><td>Department Head</td><td>Satkhira</td><td>01712818010</td><td>mmrahman.scw@gmail.com</td><td>Member</td></tr>
+            <tr><td>12</td><td>Ms Shirin Sultana</td><td>SCW</td><td>Assistant Professor</td><td>-</td><td>Nill</td><td>01752030269</td><td>Shirin105@gmail.com</td><td>Member</td></tr>
+            <tr><td>13</td><td>Dr Himadri Sekhar Roy</td><td>ENG</td><td>Professor</td><td>-</td><td>Magura</td><td>01719266004</td><td>roy-eng@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>14</td><td>Dr Hossain Al Mamun</td><td>Nill</td><td>Professor</td><td>Treasurer of (JUST)</td><td>Kushtia</td><td>01911612061</td><td>mamuneng_sust@yahoo.com</td><td>Member</td></tr>
+            <tr><td>15</td><td>Dr Muhammed Alamgir Toimoor</td><td>ENG</td><td>Professor</td><td>-</td><td>Kushtia</td><td>01718337348</td><td>toimoor@sust.edu</td><td>Member</td></tr>
+            <tr><td>16</td><td>Dr Md Sikander Ali</td><td>ENG</td><td>Professor</td><td>-</td><td>Satkhira</td><td>01716479311</td><td>sikandar.eng@gmail.com</td><td>Member</td></tr>
+            <tr><td>17</td><td>Zarin Tasnim</td><td>ENg</td><td>Assistant Professor</td><td>On leave</td><td>Nill</td><td>01704604397</td><td>tasnim-eng@sust.edu</td><td>Member</td></tr>
+            <tr><td>18</td><td>Dr GM Rabiul Islam</td><td>FET</td><td>Professor</td><td>-</td><td>Jashore</td><td>01716012297</td><td>rabi-ttc@sust.edu</td><td>Member</td></tr>
+            <tr><td>19</td><td>Dr Wahiduzzaman</td><td>FET</td><td>Professor</td><td>-</td><td>Kushtia</td><td>01912320530</td><td>wahidanft@yahoo.com</td><td>Member</td></tr>
+            <tr><td>20</td><td>Md Belal Hossain Sikder</td><td>FET</td><td>Professor</td><td>-</td><td>Magura</td><td>01911212427</td><td>belal-ttc@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>21</td><td>Dr Animesh Sarker</td><td>FET</td><td>Professor</td><td>-</td><td>Jashore</td><td>01712634624</td><td>animeshsarkarbau@gmail.com</td><td>Member</td></tr>
+            <tr><td>22</td><td>Dr Mizanur Rahman</td><td>FET</td><td>Assistant Professor</td><td>On leave</td><td>Satkhira</td><td>01914605690</td><td>mizan.ftt@gmail.com</td><td>Member</td></tr>
+            <tr><td>23</td><td>Dr Md Anowar Islam</td><td>GEE</td><td>Associate Professor</td><td>-</td><td>Satkhira</td><td>01709109665</td><td>Anowar-gee@sust.edu</td><td>Member</td></tr>
+            <tr><td>24</td><td>Dr Md Abdul Goni</td><td>SOC</td><td>Professor</td><td>-</td><td>Jashore</td><td>01919218933</td><td>maghani_sust@yahoo.com</td><td>Member</td></tr>
+            <tr><td>25</td><td>Dr Md Assraff Siddiky</td><td>PAD</td><td>Professor</td><td>Department Head</td><td>Jashore</td><td>1716152809</td><td>assraf-pad@sust.edu</td><td>Member</td></tr>
+            <tr><td>26</td><td>Dr. Esmat Ara</td><td>PAD</td><td>Professor</td><td>-</td><td>Nill</td><td>1719787133</td><td>ara_esmat@yahoo.com</td><td>Member</td></tr>
+            <tr><td>27</td><td>Md Mahmud Hasan</td><td>PAD</td><td>Assistant Professor</td><td>-</td><td>Jashore</td><td>01712967567</td><td>mahmud-pad@sust.edu</td><td>Member</td></tr>
+            <tr><td>28</td><td>Pronob Kumar Biswas</td><td>IPE</td><td>Assistant Professor</td><td>On leave</td><td>Nill</td><td>01750887879</td><td>pronob-ipe@sust.edu</td><td>Member</td></tr>
+            <tr><td>29</td><td>Dr Md Imran Kabir</td><td>CEE</td><td>Professor</td><td>-</td><td>Khulna</td><td>01711143363</td><td>Imran.Kabir-cee@sust.edu</td><td>Lifetime Member</td></tr>
+            <tr><td>30</td><td>Md Aminul Islam Kajol</td><td>CEE</td><td>Assistant Professor</td><td>-</td><td>Khulna</td><td>01717762464</td><td>kajol_cee@yahoo.com</td><td>Member</td></tr>
+  <tr><td>31</td><td>Abudllah Al Noman</td><td>CEE</td><td>Lecturer</td><td>-</td><td>Magura</td><td>01798272744</td><td>aanoman-cee@sust.edu</td><td>Member</td></tr>
+            <tr><td>32</td><td>Dr PAbel Shahrear</td><td>MAT</td><td>Professor</td><td>-</td><td>Jashore</td><td>01711452071</td><td>pabelshahrear@yahoo.com</td><td>Lifetime Member</td></tr>
+            <tr><td>33</td><td>Dr Shishir Kanti Pramanik</td><td>CHE</td><td>Professor</td><td>-</td><td>Magura</td><td>01717266762</td><td>shisir kanti@yahoo.com</td><td>Member</td></tr>
+            <tr><td>34</td><td>Dr Md Rejaul Islam</td><td>BNG</td><td>Professor</td><td>-</td><td>Jashore</td><td>01718993900</td><td>assraf08@yahoo.com</td><td>Member</td></tr>
+            <tr><td>35</td><td>Dr Anock Somadder</td><td>PHY</td><td>Associate Professor</td><td>-</td><td>Chuadanga</td><td>01710850528</td><td>xou03@yahoo.com</td><td>Member</td></tr>
+            <tr><td>36</td><td>Dr H.M Syfuddin</td><td>BMB</td><td>Associate Professor</td><td>-</td><td>Nill</td><td>01723333287</td><td>syfuddin.btge@gmail.com</td><td>Member</td></tr>
+            <tr><td>37</td><td>Md Mahmud Or Rashid</td><td>MEE</td><td>Assistant Professor</td><td>-</td><td>Jashore</td><td>01758639844</td><td>mmrashid-mee@sust.edu</td><td>Member</td></tr>
+            <tr><td>38</td><td>Dr Md Mustafizur Rahman</td><td>ARC</td><td>Professor</td><td>-</td><td>Khulna</td><td>01712127544</td><td>mustafiz-arc@sust.edu</td><td>Member</td></tr>
+            <tr><td>39</td><td>Abhijit Mazumdar</td><td>ARC</td><td>Assistant Professor</td><td>-</td><td>Nill</td><td>01710230265</td><td>abhijit-arc@sust.edu</td><td>Member</td></tr>
+            <tr><td>40</td><td>Dr Md Abdul Halim</td><td>FES</td><td>Assistant Professor</td><td>On leave</td><td>Chuadanga</td><td>01714078386</td><td>Member</td><td>Member</td></tr>
+            <tr><td>41</td><td>Md Shahabul Haque</td><td>PSS</td><td>Professor</td><td>-</td><td>Jhenaidah</td><td>01711234056</td><td>shahabu14@yahoo.com</td><td>Member</td></tr>
+            <tr><td>42</td><td>Abdullah Al Noman</td><td>CSE</td><td>Lecturer</td><td>-</td><td>Khulna</td><td>01601160217</td><td>noman-cse@sust.edu</td><td>Member</td></tr>
+<tr><td>43</td><td>Md. Shymon Islam</td><td>CSE</td><td>Lecturer</td><td>-</td><td>Khulna</td><td>01718550548</td><td>shymon-cse@sust.edu</td><td>Member</td></tr>
+            <tr><td>44</td><td>Md Riadul Islam</td><td>IML</td><td>Assistant Professor</td><td>-</td><td>Bagerhat</td><td>01911714706</td><td>Riad-iml@sust.edu</td><td>Member</td></tr>
+            <tr><td>45</td><td>Md Hedayetullah Al Hadi</td><td>IML</td><td>Assistant Professor</td><td>-</td><td>Jhenaidah</td><td>01749767132</td><td>Hedayetullah7@gmail.com</td><td>Member</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card table-card" style="margin-top:1rem;">
+      <div class="pill">Officers List</div>
+      <div class="search-row">
+        <span class="helper">Search by name, designation, district, email, mobile or membership status.</span>
+        <input id="search-officers-public" type="text" placeholder="Search officers..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-officers-public">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>District</th>
+              <th>Mobile</th>
+              <th>Email</th>
+              <th>Membership Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Ms Sohely Tamanna</td><td>Deputy Librarian</td><td>Nill</td><td>01912377947</td><td>sohely-lib@sust.edu</td><td>Nill</td></tr>
+            <tr><td>2</td><td>Ms Purabi Chatterjee</td><td>Assistant Director</td><td>Nill</td><td>01712757002</td><td>purabi-pnd@sust.edu</td><td>Nill</td></tr>
+            <tr><td>3</td><td>Abdullah al mamun</td><td>Administrative Officer</td><td>Nill</td><td>01961017949</td><td>-</td><td>Nill</td></tr>
+            <tr><td>4</td><td>Md Asad</td><td>VC office</td><td>Nill</td><td>01921149996</td><td>-</td><td>Nill</td></tr>
+            <tr><td>5</td><td>Sajjad</td><td>Employee</td><td>Nill</td><td>01946109215</td><td>-</td><td>Nill</td></tr>
+            <tr><td>6</td><td>Abdul kader</td><td>Employee</td><td>Nill</td><td>01749244545</td><td>-</td><td>Nill</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- GALLERY -->
+  <section id="gallery" class="page">
+    <h2 class="section-title">Gallery</h2>
+    <p class="section-subtitle">
+      Selected photos and videos from Mangrove Association events and activities.
+    </p>
+
+    <div class="gallery-tabs">
+      <div class="gallery-tab active" data-gallery="photos">Photos</div>
+      <div class="gallery-tab" data-gallery="videos">Videos</div>
+    </div>
+
+    <!-- Photos -->
+    <div id="gallery-photos" class="card">
+      <div class="pill">Photo Albums</div>
+      <p style="font-size:0.85rem; margin-top:0.3rem;">
+        Albums are grouped by program name. Later you can replace these with real event photos.
+      </p>
+
+      <div class="gallery-grid" style="margin-top:0.8rem;">
+        <div class="gallery-item">
+          <div class="gallery-thumb">
+            <img src="mga freshers recep 2025.jpg" alt="Orientation Program" />
+          </div>
+          <div class="gallery-caption">
+            Orientation &amp; Freshers' Reception
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-thumb">
+            <img src="https://via.placeholder.com/300x200.png?text=Environmental+Day" alt="World Environment Day" />
+          </div>
+          <div class="gallery-caption">
+            World Environment Day Rally &amp; Seminar
+          </div>
+        </div>
+        <div class="gallery-item">
+          <div class="gallery-thumb">
+            <img src="https://via.placeholder.com/300x200.png?text=Study+Tour" alt="Study Tour" />
+          </div>
+          <div class="gallery-caption">
+            Departmental Study Tour &amp; Field Visit
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Videos -->
+    <div id="gallery-videos" class="card" style="margin-top:1rem; display:none;">
+      <div class="pill">Video Highlights</div>
+      <p style="font-size:0.85rem; margin-top:0.3rem;">
+        For demo, here we list video titles. Later you can link real YouTube / drive videos.
+      </p>
+      <ul style="margin-left:1.1rem; margin-top:0.5rem; font-size:0.88rem;">
+        <li>Mangrove Association Intro Video</li>
+        <li>Environment Awareness Campaign Highlights</li>
+        <li>Annual Reunion &amp; Alumni Meet Clips</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="page">
+    <h2 class="section-title">About Mangrove Association</h2>
+    <p class="section-subtitle">
+      Short overview, history, mission, vision and core values of Mangrove Association.
+    </p>
+
+    <div class="two-col">
+      <div class="card">
+        <div class="pill">History</div>
+        <p>
+          Mangrove Association was formed by students of the Department of Geography &amp; Environment
+          to create an organized platform for departmental programs and social contribution.
+        </p>
+        <p style="margin-top:0.4rem;">
+          What started as small discussion sessions and voluntary work gradually transformed into a
+          structured association with constitution, elected committee and regular activities.
+        </p>
+        <p style="margin-top:0.4rem;">
+          Today, Mangrove Association keeps record of programs, connects alumni, and supports
+          department-wide initiatives through cooperation and teamwork.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="pill">Vision, Mission &amp; Core Values</div>
+        <p><strong>Vision</strong>: A connected, responsible and research-oriented community of students, teachers, staff and alumni.</p>
+        <p style="margin-top:0.3rem;"><strong>Mission</strong>:</p>
+        <ul style="margin-left:1.1rem; font-size:0.9rem;">
+          <li>Organize academic, cultural and social programs under one umbrella.</li>
+          <li>Create leadership and teamwork opportunities for students.</li>
+          <li>Build long-term connection between present batches and alumni.</li>
+          <li>Promote environmental awareness and sustainable practices.</li>
+        </ul>
+        <p style="margin-top:0.35rem;"><strong>Core values</strong>: Respect, responsibility, transparency, collaboration and service.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="page">
+    <h2 class="section-title">Contact &amp; Communication</h2>
+    <p class="section-subtitle">
+      Official contact details of Mangrove Association and a simple contact form.
+    </p>
+
+    <div class="contact-grid">
+      <div class="card">
+        <div class="pill">Official Details</div>
+        <p><strong>Office / Address:</strong><br>
+        
+SUST, Sylhet, Bangladesh, 3114<br>
+          
+        </p>
+        <p style="margin-top:0.5rem;">
+          <strong>Email:</strong> mangrovesust2000@gmail.com<br>
+          <strong>Phone:</strong> +8801XXXXXXXXX
+        </p>
+        <p style="margin-top:0.5rem;">
+          <strong>Facebook Page:</strong> https://web.facebook.com/photo/?fbid=1167218338778737&set=a.458057469694831<br>
+          <strong>Other Social:</strong> https://web.facebook.com/photo/?fbid=1167218338778737&set=a.458057469694831
+        </p>
+        <div class="notice">
+          For official communication related to events, permission letters or MoU,
+          please use the official email and mention your name, designation and contact number clearly.
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="pill">Contact Form</div>
+        <p class="helper">Demo form – works in frontend only. Later can be connected with email / backend.</p>
+        <div class="field">
+          <label for="contact-name">Name</label>
+          <input id="contact-name" type="text" placeholder="Your full name" />
+        </div>
+        <div class="field">
+          <label for="contact-email">Email</label>
+          <input id="contact-email" type="email" placeholder="your@email.com" />
+        </div>
+        <div class="field">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" placeholder="Write your message or query"></textarea>
+        </div>
+        <button class="btn btn-primary btn-small" type="button" onclick="fakeContactSubmit()">
+          Send (demo)
+        </button>
+        <p id="contact-status" class="helper" style="margin-top:0.4rem;"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRATION -->
+  <section id="registration" class="page">
+    <h2 class="section-title">Membership Registration</h2>
+    <p class="section-subtitle">
+      Register as student, teacher or officer/staff to be included in Mangrove Association database.
+    </p>
+
+    <div class="card">
+      <div class="pill">Registration Form (Demo)</div>
+      <p class="helper">
+        This form is a front-end demo only. In final site, it can be connected with real database or Google Form.
+      </p>
+
+      <form id="reg-form" onsubmit="handleRegistration(event)" style="margin-top:0.6rem;">
+        <div class="field">
+          <label>Member Type</label>
+          <div style="display:flex; flex-wrap:wrap; gap:0.9rem; font-size:0.87rem; margin-top:0.3rem;">
+            <label><input type="radio" name="memberType" value="student" checked /> Student</label>
+            <label><input type="radio" name="memberType" value="teacher" /> Teacher</label>
+            <label><input type="radio" name="memberType" value="staff" /> Officer / Staff</label>
+          </div>
+        </div>
+
+        <!-- STUDENT FIELDS -->
+        <div id="reg-student">
+          <div class="field"><label>Name</label><input name="s_name" type="text" /></div>
+          <div class="field"><label>Registration Number</label><input name="s_reg" type="text" /></div>
+          <div class="field"><label>Email</label><input name="s_email" type="email" /></div>
+          <div class="field"><label>Mobile</label><input name="s_mobile" type="text" /></div>
+          <div class="field"><label>Department</label><input name="s_dept" type="text" value="Geography &amp; Environment" /></div>
+          <div class="field"><label>Session</label><input name="s_session" type="text" /></div>
+          <div class="field"><label>District</label><input name="s_district" type="text" /></div>
+          <div class="field"><label>College</label><input name="s_college" type="text" /></div>
+<div class="field"><label>Trasaction ID/Name of rceiver</label><input name="s_college" type="text" /></div>
+        </div>
+
+        <!-- TEACHER FIELDS -->
+        <div id="reg-teacher" style="display:none;">
+          <div class="field"><label>Name</label><input name="t_name" type="text" /></div>
+          <div class="field"><label>NID Number</label><input name="t_nid" type="text" /></div>
+          <div class="field"><label>Department</label><input name="t_dept" type="text" /></div>
+          <div class="field"><label>Designation</label><input name="t_designation" type="text" /></div>
+          <div class="field"><label>Email</label><input name="t_email" type="email" /></div>
+          <div class="field"><label>Mobile</label><input name="t_mobile" type="text" /></div>
+          <div class="field"><label>District</label><input name="t_district" type="text" /></div>
+        </div>
+
+        <!-- STAFF FIELDS -->
+        <div id="reg-staff" style="display:none;">
+          <div class="field"><label>Name</label><input name="st_name" type="text" /></div>
+          <div class="field"><label>NID Number</label><input name="st_nid" type="text" /></div>
+          <div class="field"><label>Office Name</label><input name="st_office" type="text" /></div>
+          <div class="field"><label>Designation</label><input name="st_designation" type="text" /></div>
+          <div class="field"><label>Email</label><input name="st_email" type="email" /></div>
+          <div class="field"><label>Mobile</label><input name="st_mobile" type="text" /></div>
+          <div class="field"><label>District</label><input name="st_district" type="text" /></div>
+        </div>
+
+        <div id="reg-alert" class="alert"></div>
+
+        <button type="submit" class="btn btn-primary btn-small">Submit (demo)</button>
+        <p id="reg-status" class="helper" style="margin-top:0.4rem;"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- DONATION -->
+  <section id="donation" class="page">
+    <h2 class="section-title">Donation &amp; Support</h2>
+    <p class="section-subtitle">
+      Support Mangrove Association with financial contribution for programs and welfare activities.
+    </p>
+
+    <div class="card">
+      <div class="pill">Why donation is needed?</div>
+      <p>
+        Mangrove Association is a non-profit platform. To organize seminars, workshops, environmental
+        activities, publications, and emergency support for students, a transparent fund is needed.
+      </p>
+      <p style="margin-top:0.4rem;">
+        Donations from alumni, teachers and well-wishers help to make these initiatives possible. All expenses
+        can be recorded in the finance report according to constitution.
+      </p>
+
+      <div style="margin-top:0.8rem;">
+        <strong>Donation methods (for demo):</strong>
+        <ul style="margin-left:1.1rem; font-size:0.9rem; margin-top:0.3rem;">
+          <li><strong>bKash (Personal / Merchant):</strong> 01XXXXXXXXX (reference: Mangrove)</li>
+          <li><strong>Bank Account:</strong> To be updated after final approval.</li>
+        </ul>
+      </div>
+
+      <div class="notice">
+        In the final version of this website, an online payment gateway (SSLCommerz / Stripe / others) can be
+        integrated so that donors can contribute directly from this page.
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBER LOGIN -->
+  <section id="login" class="page">
+    <h2 class="section-title">
+      Member Login
+      <span id="login-badge" class="badge-locked">Locked</span>
+    </h2>
+    <p class="section-subtitle">
+      Special access for President, General Secretary, IT Secretary and Chief Advisors to view internal lists
+      and constitution.
+    </p>
+
+    <div class="login-box card">
+      <div class="pill">Restricted Area</div>
+      <p class="login-meta">
+        For demo purpose, this login works with a single password only. Later it can be integrated with real
+        user accounts.
+      </p>
+      <div class="field">
+        <label for="login-name">Name</label>
+        <input id="login-name" type="text" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label for="login-position">Position</label>
+        <input id="login-position" type="text" placeholder="President / GS / IT Secretary / Advisor" />
+      </div>
+      <div class="field">
+        <label for="login-mobile">Mobile</label>
+        <input id="login-mobile" type="text" placeholder="01XXXXXXXXX" />
+      </div>
+      <div class="field">
+        <label for="login-password">Special Password</label>
+        <input id="login-password" type="password" />
+        <p class="login-hint">
+          Demo password (for testing only): <strong>Mangrove2026</strong>
+        </p>
+      </div>
+
+      <div id="login-alert" class="alert"></div>
+
+      <button type="button" class="btn btn-primary btn-small" onclick="handleLogin()">Login</button>
+      <p class="helper" style="margin-top:0.4rem;">
+        After successful login, the <strong>Members Area</strong> menu will be unlocked.
+      </p>
+    </div>
+  </section>
+
+  <!-- MEMBERS AREA (PRIVATE) -->
+  <section id="members" class="page">
+    <h2 class="section-title">Members Area</h2>
+    <p class="section-subtitle">
+      Internal lists of students, teachers &amp; staff, alumni, previous committees and constitution.
+    </p>
+
+    <!-- Students -->
+    <div class="card table-card">
+      <div class="pill">Students List</div>
+      <div class="search-row">
+        <span class="helper">Search by name, registration, session, department or district.</span>
+        <input id="search-students" type="text" placeholder="Search students..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-students">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Reg. No</th>
+              <th>Session</th>
+              <th>Department</th>
+              <th>District</th>
+              <th>Contact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- data via JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Teachers & Staff -->
+    <div class="card table-card">
+      <div class="pill">Teachers &amp; Staff</div>
+      <div class="search-row">
+        <span class="helper">Search by name, designation, department or district.</span>
+        <input id="search-teachers" type="text" placeholder="Search teachers & staff..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-teachers">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Designation</th>
+              <th>Department</th>
+              <th>District</th>
+              <th>Email</th>
+              <th>Contact</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Alumni -->
+    <div class="card table-card">
+      <div class="pill">Alumni</div>
+      <div class="search-row">
+        <span class="helper">Search by name, profession, department or session.</span>
+        <input id="search-alumni" type="text" placeholder="Search alumni..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-alumni">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Profession</th>
+              <th>Department</th>
+              <th>Session</th>
+              <th>District</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Previous Committee -->
+    <div class="card table-card">
+      <div class="pill">Previous Committees</div>
+      <div class="search-row">
+        <span class="helper">Search by year, position, name or session.</span>
+        <input id="search-previous" type="text" placeholder="Search previous committees..." />
+      </div>
+      <div style="overflow-x:auto;">
+        <table id="table-previous">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Position</th>
+              <th>Name</th>
+              <th>Department</th>
+              <th>Session</th>
+              <th>District</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Constitution -->
+    <div class="card" style="margin-top:1rem;">
+      <div class="pill">Constitution (Demo)</div>
+      <p style="font-size:0.9rem;">
+        Here you can place the full constitution of Mangrove Association. For demo, short structure is shown.
+      </p>
+      <ol style="margin-left:1.2rem; margin-top:0.4rem; font-size:0.88rem;">
+        <li><strong>Name &amp; Identity:</strong> Mangrove Association – non-political, non-profit platform.</li>
+        <li><strong>Membership:</strong> Students, teachers, officers &amp; staff, and alumni of the department.</li>
+        <li><strong>Committee:</strong> Elected executive committee for a fixed term with defined roles.</li>
+        <li><strong>Finance:</strong> Membership fee, donations, and grants with transparent record keeping.</li>
+        <li><strong>Meetings:</strong> General meetings, executive meetings and emergency meetings.</li>
+        <li><strong>Amendments:</strong> Constitution can be amended with approved process and voting.</li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer>
+  &copy; <span class="year"></span> Mangrove Association. All rights reserved.
+</footer>
+
+<script>
+  // ========= NAVIGATION =========
+
+  const navItems = document.querySelectorAll("#nav li[data-target]");
+  const pages = document.querySelectorAll("section.page");
+
+  function showPage(id) {
+    pages.forEach(sec => {
+      sec.classList.toggle("active", sec.id === id);
+    });
+    navItems.forEach(li => {
+      li.classList.toggle("active", li.dataset.target === id);
+    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  navItems.forEach(li => {
+    li.addEventListener("click", () => {
+      const target = li.dataset.target;
+      if (!target) return;
+      if (target === "members" && !window.__mangroveLoggedIn) {
+        showPage("login");
+      } else {
+        showPage(target);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-jump]").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const target = btn.getAttribute("data-jump");
+      showPage(target);
+    });
+  });
+
+  // ========= GALLERY TABS =========
+
+  const galleryTabs = document.querySelectorAll(".gallery-tab");
+  const photosBox = document.getElementById("gallery-photos");
+  const videosBox = document.getElementById("gallery-videos");
+
+  galleryTabs.forEach(tab => {
+    tab.addEventListener("click", () => {
+      galleryTabs.forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      const mode = tab.dataset.gallery;
+      if (mode === "photos") {
+        photosBox.style.display = "block";
+        videosBox.style.display = "none";
+      } else {
+        photosBox.style.display = "none";
+        videosBox.style.display = "block";
+      }
+    });
+  });
+
+  // ========= CONTACT (DEMO) =========
+
+  function fakeContactSubmit() {
+    const name = document.getElementById("contact-name").value.trim();
+    const email = document.getElementById("contact-email").value.trim();
+    const msg = document.getElementById("contact-message").value.trim();
+    const status = document.getElementById("contact-status");
+    if (!name || !email || !msg) {
+      status.textContent = "Please fill all fields before sending (demo).";
+    } else {
+      status.textContent = "Thank you! In real site this message would be sent to official email.";
+    }
+  }
+
+  // ========= REGISTRATION (DEMO) =========
+
+  const regStudentBox = document.getElementById("reg-student");
+  const regTeacherBox = document.getElementById("reg-teacher");
+  const regStaffBox = document.getElementById("reg-staff");
+  const regAlert = document.getElementById("reg-alert");
+  const regStatus = document.getElementById("reg-status");
+
+  document.querySelectorAll("input[name='memberType']").forEach(r => {
+    r.addEventListener("change", () => {
+      const value = r.value;
+      regStudentBox.style.display = value === "student" ? "block" : "none";
+      regTeacherBox.style.display = value === "teacher" ? "block" : "none";
+      regStaffBox.style.display = value === "staff" ? "block" : "none";
+      regAlert.style.display = "none";
+      regStatus.textContent = "";
+    });
+  });
+
+  function handleRegistration(e) {
+    e.preventDefault();
+    const type = document.querySelector("input[name='memberType']:checked").value;
+    regAlert.style.display = "none";
+    regStatus.textContent = "";
+
+    let filled = false;
+    if (type === "student") {
+      filled = document.querySelector("input[name='s_name']").value.trim() &&
+               document.querySelector("input[name='s_reg']").value.trim();
+    } else if (type === "teacher") {
+      filled = document.querySelector("input[name='t_name']").value.trim();
+    } else {
+      filled = document.querySelector("input[name='st_name']").value.trim();
+    }
+
+    if (!filled) {
+      regAlert.textContent = "Please fill at least the required basic information (name, reg / NID etc.).";
+      regAlert.classList.remove("success");
+      regAlert.style.display = "block";
+      return;
+    }
+
+    regAlert.classList.add("success");
+    regAlert.textContent = "Form submitted (demo only). In real site this would be saved into database.";
+    regAlert.style.display = "block";
+    regStatus.textContent = "You can show this submission as a sample during presentation.";
+  }
+
+  // ========= LOGIN & MEMBERS =========
+
+  const DEMO_PASSWORD = "Mangrove2026";
+  const loginAlert = document.getElementById("login-alert");
+  const loginBadge = document.getElementById("login-badge");
+  const navMembers = document.getElementById("nav-members");
+
+  function handleLogin() {
+    const name = document.getElementById("login-name").value.trim();
+    const position = document.getElementById("login-position").value.trim();
+    const mobile = document.getElementById("login-mobile").value.trim();
+    const pass = document.getElementById("login-password").value;
+
+    loginAlert.style.display = "none";
+
+    if (!name || !position || !mobile || !pass) {
+      loginAlert.textContent = "Please fill all fields.";
+      loginAlert.classList.remove("success");
+      loginAlert.style.display = "block";
+      return;
+    }
+    if (pass !== DEMO_PASSWORD) {
+      loginAlert.textContent = "Incorrect password (demo).";
+      loginAlert.classList.remove("success");
+      loginAlert.style.display = "block";
+      return;
+    }
+
+    window.__mangroveLoggedIn = true;
+    loginAlert.textContent = "Login successful. Members Area unlocked.";
+    loginAlert.classList.add("success");
+    loginAlert.style.display = "block";
+
+    loginBadge.textContent = "Unlocked";
+    loginBadge.classList.add("badge-unlocked");
+    navMembers.style.display = "inline-block";
+  }
+
+  // ========= DEMO DATA FOR MEMBERS AREA =========
+
+  const studentsData = [
+    {
+      name: "Md Asadullah Al Galib",
+      reg: "2021001",
+      session: "2021-22",
+      dept: "Geography & Environment",
+      district: "Jashore",
+      contact: "01XXXXXXXXX",
+    },
+    {
+      name: "Student Example Two",
+      reg: "2020005",
+      session: "2020-21",
+      dept: "Geography & Environment",
+      district: "Sylhet",
+      contact: "01YYYYYYYYY",
+    },
+  ];
+
+  const teachersData = [
+    {
+      name: "Dr Example Teacher",
+      designation: "Professor",
+      dept: "Geography & Environment",
+      district: "Sylhet",
+      email: "teacher@example.com",
+      contact: "01XXXXXXXXX",
+    },
+    {
+      name: "Mr Staff Example",
+      designation: "Office Assistant",
+      dept: "Department Office",
+      district: "Sylhet",
+      email: "staff@example.com",
+      contact: "01YYYYYYYYY",
+    },
+  ];
+
+  const alumniData = [
+    {
+      name: "Alumni Example One",
+      profession: "Environment Officer",
+      dept: "Geography & Environment",
+      session: "2012-13",
+      district: "Dhaka",
+    },
+    {
+      name: "Alumni Example Two",
+      profession: "Researcher",
+      dept: "Geography & Environment",
+      session: "2015-16",
+      district: "Chattogram",
+    },
+  ];
+
+  const previousCommitteeData = [
+    {
+      year: "2023-24",
+      position: "President",
+      name: "Previous President",
+      dept: "Geography & Environment",
+      session: "2018-19",
+      district: "Khulna",
+    },
+    {
+      year: "2023-24",
+      position: "General Secretary",
+      name: "Previous GS",
+      dept: "Geography & Environment",
+      session: "2019-20",
+      district: "Sylhet",
+    },
+  ];
+
+  function fillTable(tableId, data, columns) {
+    const tbody = document.querySelector(`#${tableId} tbody`);
+    tbody.innerHTML = "";
+    data.forEach(row => {
+      const tr = document.createElement("tr");
+      columns.forEach(col => {
+        const td = document.createElement("td");
+        td.textContent = row[col] || "";
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  }
+
+  fillTable("table-students", studentsData,
+    ["name", "reg", "session", "dept", "district", "contact"]);
+  fillTable("table-teachers", teachersData,
+    ["name", "designation", "dept", "district", "email", "contact"]);
+  fillTable("table-alumni", alumniData,
+    ["name", "profession", "dept", "session", "district"]);
+  fillTable("table-previous", previousCommitteeData,
+    ["year", "position", "name", "dept", "session", "district"]);
+
+  function setupSearch(inputId, tableId) {
+    const input = document.getElementById(inputId);
+    const tbody = document.querySelector(`#${tableId} tbody`);
+    input.addEventListener("input", () => {
+      const q = input.value.trim().toLowerCase();
+      Array.from(tbody.rows).forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(q) ? "" : "none";
+      });
+    });
+  }
+
+  setupSearch("search-students", "table-students");
+  setupSearch("search-teachers", "table-teachers");
+  setupSearch("search-alumni", "table-alumni");
+  setupSearch("search-previous", "table-previous");
+
+  // ========= FOOTER YEAR =========
+
+  document.querySelector("span.year").textContent = new Date().getFullYear();
+
+<script>
+
+const searchTeachers = document.getElementById("search-teachers-public");
+
+searchTeachers.addEventListener("keyup", function(){
+
+let filter = searchTeachers.value.toLowerCase();
+
+let table = document.getElementById("table-teachers-public");
+
+let tr = table.getElementsByTagName("tr");
+
+for(let i = 1; i < tr.length; i++){
+
+let td = tr[i].getElementsByTagName("td");
+
+let found = false;
+
+for(let j=0;j<td.length;j++){
+
+if(td[j].innerText.toLowerCase().indexOf(filter) > -1){
+
+found = true;
+
+}
+
+}
+
+if(found){
+
+tr[i].style.display = "";
+
+}
+
+else{
+
+tr[i].style.display = "none";
+
+}
+
+}
+
+});
+
+</script>
+<script>
+
+const navItems = document.querySelectorAll("#nav li");
+const pages = document.querySelectorAll(".page");
+
+navItems.forEach(item => {
+
+item.addEventListener("click", function(){
+
+const target = this.getAttribute("data-target");
+
+if(!target) return;
+
+pages.forEach(p=>{
+p.classList.remove("active");
+});
+
+navItems.forEach(n=>{
+n.classList.remove("active");
+});
+
+document.getElementById(target).classList.add("active");
+
+this.classList.add("active");
+
+});
+
+});
+
+
+/* hero button navigation */
+
+const jumpButtons = document.querySelectorAll("[data-jump]");
+
+jumpButtons.forEach(btn => {
+
+btn.addEventListener("click", function(){
+
+const target = this.getAttribute("data-jump");
+
+pages.forEach(p=>{
+p.classList.remove("active");
+});
+
+navItems.forEach(n=>{
+n.classList.remove("active");
+});
+
+document.getElementById(target).classList.add("active");
+
+document.querySelector(`[data-target="${target}"]`).classList.add("active");
+
+});
+
+});
+
+</script>
+<script>
+
+const searchTeachers = document.getElementById("search-teachers-public");
+
+searchTeachers.addEventListener("keyup", function(){
+
+let filter = searchTeachers.value.toLowerCase();
+
+let table = document.getElementById("table-teachers-public");
+
+let tr = table.getElementsByTagName("tr");
+
+for(let i = 1; i < tr.length; i++){
+
+let rowText = tr[i].innerText.toLowerCase();
+
+if(rowText.indexOf(filter) > -1){
+
+tr[i].style.display = "";
+
+}
+
+else{
+
+tr[i].style.display = "none";
+
+}
+
+}
+
+});
+
+</script>
+<script>
+
+const searchOfficers = document.getElementById("search-officers-public");
+
+searchOfficers.addEventListener("keyup", function(){
+
+let filter = searchOfficers.value.toLowerCase();
+
+let table = document.getElementById("table-officers-public");
+
+let tr = table.getElementsByTagName("tr");
+
+for(let i = 1; i < tr.length; i++){
+
+let rowText = tr[i].innerText.toLowerCase();
+
+if(rowText.indexOf(filter) > -1){
+
+tr[i].style.display = "";
+
+}
+
+else{
+
+tr[i].style.display = "none";
+
+}
+
+}
+
+});
+
+</script>
+<script>
+
+const galleryTabs = document.querySelectorAll(".gallery-tab");
+
+galleryTabs.forEach(tab => {
+
+tab.addEventListener("click", function(){
+
+galleryTabs.forEach(t=>{
+t.classList.remove("active");
+});
+
+this.classList.add("active");
+
+let target = this.getAttribute("data-gallery");
+
+document.getElementById("gallery-photos").style.display = "none";
+document.getElementById("gallery-videos").style.display = "none";
+
+document.getElementById("gallery-" + target).style.display = "block";
+
+});
+
+});
+
+</script>
+
+</body>
+</html>
